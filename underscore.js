@@ -499,6 +499,12 @@
     return typeof obj == 'undefined';
   };
 
+  // Is a given variable truthy? (That is neither false, null, undefined,
+  // empty string, number 0 nor NaN)
+  _.isTruthy = function(obj) {
+      return obj ? true : false;
+  };
+
   // Invokes interceptor with the obj, and then returns obj. 
   // The primary purpose of this method is to "tap into" a method chain, in order to perform operations on intermediate results within the chain.
   _.tap = function(obj, interceptor) {
