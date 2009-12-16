@@ -27,6 +27,14 @@
   // Create a safe reference to the Underscore object for reference below.
   var _ = root._ = function(obj) { return new wrapper(obj); };
 
+  var compatibility = {
+    brokenReduce: function() {
+      // Prototype prior to version 1.6.1 had an implementation of Array.prototype.reduce
+      // that does something completely different from JavaScript 1.8's.
+      return _.isTruthy(root.Prototype) && root.Prototype.Version < '1.6.1';
+    }
+  };
+
   // Export the Underscore object for CommonJS.
   if (typeof exports !== 'undefined') exports._ = _;
 
@@ -74,12 +82,8 @@
 
   // Reduce builds up a single result from a list of values. Also known as
   // inject, or foldl. Uses JavaScript 1.8's version of reduce, if possible.
-  //
-  // If prototype.js is present, don't use the object's reduce method because
-  // Prototype adds a implementation of reduce that does something completely
-  // different.
   _.reduce = function(obj, memo, iterator, context) {
-    if (obj && _.isFunction(obj.reduce) && !root.Prototype) return obj.reduce(_.bind(iterator, context), memo);
+    if (obj && _.isFunction(obj.reduce) && !compatibility.brokenReduce()) return obj.reduce(_.bind(iterator, context), memo);
     _.each(obj, function(value, index, list) {
       memo = iterator.call(context, memo, value, index, list);
     });
