@@ -32,6 +32,12 @@
       // Prototype prior to version 1.6.1 had an implementation of Array.prototype.reduce
       // that does something completely different from JavaScript 1.8's.
       return _.isTruthy(root.Prototype) && root.Prototype.Version < '1.6.1';
+    },
+    brokenMap: function() {
+      // Prototype has a own implementation of Array.prototype.map that doesn't pass the
+      // object being mapped as a third parameter. Since it's pretty much the same
+      // Underscore uses, we declare it broken.
+      return _.isTruthy(root.Prototype);
     }
   };
 
@@ -72,7 +78,7 @@
   // Return the results of applying the iterator to each element. Use JavaScript
   // 1.6's version of map, if possible.
   _.map = function(obj, iterator, context) {
-    if (obj && _.isFunction(obj.map)) return obj.map(iterator, context);
+    if (obj && _.isFunction(obj.map) && !compatibility.brokenMap()) return obj.map(iterator, context);
     var results = [];
     _.each(obj, function(value, index, list) {
       results.push(iterator.call(context, value, index, list));
