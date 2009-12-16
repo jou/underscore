@@ -1,4 +1,4 @@
-$(document).ready(function() {
+jQuery(document).ready(function($) {
 
   module("Object functions (values, extend, isEqual, and so on...)");
 
