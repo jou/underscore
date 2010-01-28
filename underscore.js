@@ -31,13 +31,13 @@
     brokenReduce: function() {
       // Prototype prior to version 1.6.1 had an implementation of Array.prototype.reduce
       // that does something completely different from JavaScript 1.8's.
-      return _.isTruthy(root.Prototype) && root.Prototype.Version < '1.6.1';
+      return !!root.Prototype && root.Prototype.Version < '1.6.1';
     },
     brokenMap: function() {
       // Prototype has a own implementation of Array.prototype.map that doesn't pass the
       // object being mapped as a third parameter. Since it's pretty much the same
       // Underscore uses, we declare it broken.
-      return _.isTruthy(root.Prototype);
+      return !!root.Prototype;
     }
   };
 
@@ -507,12 +507,6 @@
   // Is a given variable undefined?
   _.isUndefined = function(obj) {
     return typeof obj == 'undefined';
-  };
-
-  // Is a given variable truthy? (That is neither false, null, undefined,
-  // empty string, number 0 nor NaN)
-  _.isTruthy = function(obj) {
-      return obj ? true : false;
   };
 
   // Invokes interceptor with the obj, and then returns obj. 
