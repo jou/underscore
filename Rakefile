@@ -7,3 +7,4 @@ task :build do
   min = Closure::Compiler.new.compile(js)
   File.open('underscore-min.js', 'w') {|f| f.write(min) }
 end
+

@@ -4,8 +4,9 @@
   "url"           : "http://documentcloud.github.com/underscore/",
   "keywords"      : ["util", "functional", "server", "client", "browser"],
   "author"        : "Jeremy Ashkenas <jeremy@documentcloud.org>",
-  "maintainer"    : "Kris Kowal <kris.kowal@cixar.com>",
   "contributors"  : [],
   "dependencies"  : [],
-  "lib"           : "."
+  "lib"           : ".",
+  "main"          : "underscore.js",
+  "version"       : "1.0.4"
 }
